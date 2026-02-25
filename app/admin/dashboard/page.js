@@ -21,6 +21,7 @@ export default function AdminDashboard() {
     const [messages, setMessages] = useState([]);
     const [settings, setSettings] = useState({ storeName: '', adminEmail: '', currency: 'USD ($)' });
     const [saveStatus, setSaveStatus] = useState({ loading: false, success: false });
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const isAdmin = localStorage.getItem('isAdmin');
@@ -226,7 +227,15 @@ export default function AdminDashboard() {
 
     return (
         <div className={styles.dashboard}>
-            <aside className={styles.sidebar}>
+            {/* Sidebar Overlay for Mobile */}
+            {isSidebarOpen && (
+                <div
+                    className={styles.sidebarOverlay}
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
+            <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
                 <div className={styles.sidebarBrand}>
                     <span className={styles.brandIcon}>🌿</span>
                     <h2>Bloom Admin</h2>
@@ -234,31 +243,31 @@ export default function AdminDashboard() {
                 <nav className={styles.sidebarNav}>
                     <button
                         className={`${styles.navItem} ${activeTab === 'dashboard' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('dashboard')}
+                        onClick={() => { setActiveTab('dashboard'); setIsSidebarOpen(false); }}
                     >
                         📊 Dashboard
                     </button>
                     <button
                         className={`${styles.navItem} ${activeTab === 'inventory' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('inventory')}
+                        onClick={() => { setActiveTab('inventory'); setIsSidebarOpen(false); }}
                     >
                         🪴 Inventory
                     </button>
                     <button
                         className={`${styles.navItem} ${activeTab === 'orders' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('orders')}
+                        onClick={() => { setActiveTab('orders'); setIsSidebarOpen(false); }}
                     >
                         📦 Orders
                     </button>
                     <button
                         className={`${styles.navItem} ${activeTab === 'messages' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('messages')}
+                        onClick={() => { setActiveTab('messages'); setIsSidebarOpen(false); }}
                     >
                         💬 Messages
                     </button>
                     <button
                         className={`${styles.navItem} ${activeTab === 'settings' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('settings')}
+                        onClick={() => { setActiveTab('settings'); setIsSidebarOpen(false); }}
                     >
                         ⚙️ Settings
                     </button>
@@ -268,9 +277,17 @@ export default function AdminDashboard() {
 
             <main className={styles.mainContent}>
                 <header className={styles.header}>
-                    <div>
-                        <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
-                        <p>Welcome back, Head Gardener</p>
+                    <div className={styles.headerTitle}>
+                        <button
+                            className={styles.mobileMenuBtn}
+                            onClick={() => setIsSidebarOpen(true)}
+                        >
+                            <span className="material-symbols-outlined">menu</span>
+                        </button>
+                        <div>
+                            <h1>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h1>
+                            <p>Welcome back, Head Gardener</p>
+                        </div>
                     </div>
                     {activeTab === 'inventory' && (
                         <div className={styles.headerActions}>
@@ -383,57 +400,59 @@ export default function AdminDashboard() {
                         )}
 
                         <section className={styles.tableSection}>
-                            <div className={styles.tableHeader}>
-                                <input
-                                    type="text"
-                                    placeholder="Search plants..."
-                                    className={styles.searchInput}
-                                    value={searchTerm}
-                                    onChange={e => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Category</th>
-                                        <th>Stock</th>
-                                        <th>Price</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {paginatedProducts.map(p => (
-                                        <tr key={p.id}>
-                                            <td>
-                                                <div className={styles.productCell}>
-                                                    <div className={styles.productThumb}>
-                                                        {p.image ? (
-                                                            <img src={p.image} alt={p.name} className={styles.thumbImg} />
-                                                        ) : (
-                                                            '🪴'
-                                                        )}
-                                                    </div>
-                                                    {p.name}
-                                                </div>
-                                            </td>
-                                            <td>{p.category}</td>
-                                            <td>
-                                                <span className={`${styles.stockBadge} ${p.stock < 15 ? styles.lowStock : ''}`}>
-                                                    {p.stock} in stock
-                                                </span>
-                                            </td>
-                                            <td>${settings.currency.includes('₹') || settings.currency.includes('INR') ? '₹' : '$'}{p.price.toFixed(2)}</td>
-                                            <td>
-                                                <div className={styles.actionBtns}>
-                                                    <button className={styles.editBtn} onClick={() => handleEditClick(p)}>Edit</button>
-                                                    <button className={styles.deleteBtnIcon} onClick={() => handleDeleteProduct(p.id)} title="Delete Product">🗑️</button>
-                                                </div>
-                                            </td>
+                            <div className={styles.tableResponsive}>
+                                <div className={styles.tableHeader}>
+                                    <input
+                                        type="text"
+                                        placeholder="Search plants..."
+                                        className={styles.searchInput}
+                                        value={searchTerm}
+                                        onChange={e => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <table className={styles.table}>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Category</th>
+                                            <th>Stock</th>
+                                            <th>Price</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {paginatedProducts.map(p => (
+                                            <tr key={p.id}>
+                                                <td>
+                                                    <div className={styles.productCell}>
+                                                        <div className={styles.productThumb}>
+                                                            {p.image ? (
+                                                                <img src={p.image} alt={p.name} className={styles.thumbImg} />
+                                                            ) : (
+                                                                '🪴'
+                                                            )}
+                                                        </div>
+                                                        {p.name}
+                                                    </div>
+                                                </td>
+                                                <td>{p.category}</td>
+                                                <td>
+                                                    <span className={`${styles.stockBadge} ${p.stock < 15 ? styles.lowStock : ''}`}>
+                                                        {p.stock} in stock
+                                                    </span>
+                                                </td>
+                                                <td>${settings.currency.includes('₹') || settings.currency.includes('INR') ? '₹' : '$'}{p.price.toFixed(2)}</td>
+                                                <td>
+                                                    <div className={styles.actionBtns}>
+                                                        <button className={styles.editBtn} onClick={() => handleEditClick(p)}>Edit</button>
+                                                        <button className={styles.deleteBtnIcon} onClick={() => handleDeleteProduct(p.id)} title="Delete Product">🗑️</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                             <div className={styles.tableFooter}>
                                 <span>Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, searchFilteredProducts.length)} of {searchFilteredProducts.length} plants</span>
                                 <div className={styles.pagination}>
@@ -470,36 +489,38 @@ export default function AdminDashboard() {
                             <h3>Customer Messages</h3>
                         </div>
                         {messages.length > 0 ? (
-                            <table className={styles.table}>
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Customer</th>
-                                        <th>Phone</th>
-                                        <th>Message</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {[...messages].reverse().map(m => (
-                                        <tr key={m.id}>
-                                            <td>{new Date(m.timestamp).toLocaleDateString()}</td>
-                                            <td>{m.fullName}</td>
-                                            <td>{m.phoneNumber}</td>
-                                            <td className={styles.messageCell}>{m.message}</td>
-                                            <td>
-                                                <button
-                                                    className={styles.deleteBtn}
-                                                    onClick={() => handleDeleteMessage(m.id)}
-                                                    title="Delete Message"
-                                                >
-                                                    🗑️
-                                                </button>
-                                            </td>
+                            <div className={styles.tableResponsive}>
+                                <table className={styles.table}>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Customer</th>
+                                            <th>Phone</th>
+                                            <th>Message</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {[...messages].reverse().map(m => (
+                                            <tr key={m.id}>
+                                                <td>{new Date(m.timestamp).toLocaleDateString()}</td>
+                                                <td>{m.fullName}</td>
+                                                <td>{m.phoneNumber}</td>
+                                                <td className={styles.messageCell}>{m.message}</td>
+                                                <td>
+                                                    <button
+                                                        className={styles.deleteBtn}
+                                                        onClick={() => handleDeleteMessage(m.id)}
+                                                        title="Delete Message"
+                                                    >
+                                                        🗑️
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         ) : (
                             <div className={styles.emptyState}>
                                 <div className={styles.emptyIcon}>💬</div>

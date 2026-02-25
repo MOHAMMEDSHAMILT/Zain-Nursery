@@ -95,3 +95,19 @@
 .footer a:hover {
     color: var(--primary);
 }
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .loginCard {
+        padding: 2.5rem 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .logo {
+        font-size: 2.5rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+}
