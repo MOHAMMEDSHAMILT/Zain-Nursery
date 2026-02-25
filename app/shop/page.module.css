@@ -1,0 +1,163 @@
+.header {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.saleBanner {
+    background-color: var(--primary-light);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.bannerContent h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0.5rem 0 1.5rem;
+    color: var(--text-main);
+}
+
+.bannerTag {
+    color: var(--primary-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+}
+
+.bannerBtn {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem 2rem;
+}
+
+.bannerArt {
+    font-size: 8rem;
+    opacity: 0.2;
+    transform: rotate(20deg);
+}
+
+.filterSection {
+    margin-bottom: 2.5rem;
+}
+
+.categories {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+    display: none;
+}
+
+.catBtn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 9999px;
+    background-color: white;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.catBtn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.loadMoreContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6rem;
+}
+
+.loadMoreBtn {
+    background-color: white;
+    border: 1px solid var(--border);
+    padding: 0.8rem 3rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+
+.loadMoreBtn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.chatFab {
+    position: fixed;
+    bottom: 100px;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+}
+
+.mobileNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    z-index: 1000;
+}
+
+.mobileNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.mobileNavItem.activeItem {
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .saleBanner {
+        padding: 1.5rem;
+        text-align: center;
+        flex-direction: column;
+    }
+
+    .bannerArt {
+        display: none;
+    }
+
+    .bannerContent h2 {
+        font-size: 1.75rem;
+    }
+}

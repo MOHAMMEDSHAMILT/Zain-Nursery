@@ -1,0 +1,178 @@
+.page {
+    padding: 4rem 0;
+    background-color: var(--bg-light);
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 3rem;
+    font-weight: 800;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 900px;
+}
+
+.card {
+    background: white;
+    border-radius: 2rem;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.tag {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: #e7faef;
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ef4444;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.plantName {
+    font-size: 2.25rem;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+}
+
+.scientificBrief {
+    color: #64748b;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.statCard {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.statCard:hover {
+    transform: translateY(-5px);
+}
+
+.statIcon {
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.statValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.instructionsHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.indicator {
+    width: 4px;
+    height: 24px;
+    background: #11d452;
+    border-radius: 2px;
+}
+
+.instructionsTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.instructionList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.instructionItem {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.stepNumber {
+    min-width: 32px;
+    height: 32px;
+    background: #11d452;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.instructionText {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.imageSection {
+    margin-bottom: 2rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    height: 300px;
+    position: relative;
+}
+
+.plantImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .plantName {
+        font-size: 1.75rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+}

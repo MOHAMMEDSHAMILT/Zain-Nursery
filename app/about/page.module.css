@@ -1,0 +1,348 @@
+.hero {
+    position: relative;
+    height: 50vh;
+    min-height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 3rem;
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.heroContent {
+    position: relative;
+    z-index: 10;
+    color: white;
+}
+
+.badge {
+    background: var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.rating {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.heroTitle {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.heroNav {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem;
+    border-radius: 9999px;
+    width: fit-content;
+}
+
+.heroBtn {
+    padding: 0.6rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.2s;
+}
+
+.heroBtn.active {
+    background: var(--primary);
+}
+
+.storySection {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.storyHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.line {
+    width: 4px;
+    height: 32px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.storyHeader h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+
+.storyText {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin-bottom: 3.5rem;
+}
+
+.missionVision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.mvCard {
+    background: var(--primary-light);
+    padding: 2.5rem;
+    border-radius: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.mvIcon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+}
+
+.mvCard h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.mvCard p {
+    color: var(--text-muted);
+}
+
+.whatWeDo {
+    padding-bottom: 5rem;
+}
+
+.serviceList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.serviceItem {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+}
+
+.serviceItem:hover {
+    border-color: var(--primary);
+    transform: translateX(10px);
+}
+
+.serviceThumb {
+    width: 70px;
+    height: 70px;
+    background: var(--bg-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.serviceInfo h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.serviceInfo p {
+    color: var(--text-muted);
+}
+
+.contactSection {
+    padding-bottom: 5rem;
+}
+
+.contactGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contactItem {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.cIcon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.contactItem h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.contactItem p {
+    color: var(--text-muted);
+}
+
+.contactCard {
+    background: white;
+    padding: 3rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+}
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contactForm .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contactForm label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.contactForm input,
+.contactForm textarea {
+    padding: 0.8rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-light);
+    font-family: inherit;
+}
+
+.contactForm textarea {
+    height: 120px;
+    resize: none;
+}
+
+.aboutFooter {
+    background: #eee;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.mapContainer {
+    background: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.mapPulse {
+    font-size: 1.25rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.successMsg {
+    margin-top: 1rem;
+    color: #4CAF50;
+    font-weight: 600;
+    animation: fadeIn 0.3s ease;
+}
+
+.errorMsg {
+    margin-top: 1rem;
+    color: #ff4d4d;
+    font-weight: 600;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 992px) {
+    .missionVision {
+        grid-template-columns: 1fr;
+    }
+
+    .contactGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
