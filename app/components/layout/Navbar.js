@@ -30,31 +30,14 @@ export default function Navbar() {
                         <Link href="/" className={styles.navLink}>Home</Link>
                         <Link href="/shop" className={styles.navLink}>Shop</Link>
 
-                        <div className={styles.centerAction}>
-                            <button
-                                className={styles.contactIconBtn}
-                                onClick={() => setIsContactOpen(!isContactOpen)}
-                                aria-label="Contact Numbers"
-                            >
-                                <span className="material-symbols-outlined">phone</span>
-                                {isContactOpen && (
-                                    <div className={styles.contactDropdown}>
-                                        <a href="tel:9567629559" className={styles.phoneLink}>
-                                            <span className="material-symbols-outlined">phone</span>
-                                            9567629559
-                                        </a>
-                                        <a href="tel:9605088858" className={styles.phoneLink}>
-                                            <span className="material-symbols-outlined">phone</span>
-                                            9605088858
-                                        </a>
-                                    </div>
-                                )}
-                            </button>
-                        </div>
-
                         <Link href="/care-guide" className={styles.navLink}>Care Guide</Link>
                         <Link href="/about" className={styles.navLink}>About</Link>
 
+                        <div className={styles.navNumbers}>
+                            <a href="tel:9567629559" className={styles.numberLink}>9567629559</a>
+                            <span className={styles.numberDivider}>|</span>
+                            <a href="tel:9605088858" className={styles.numberLink}>9605088858</a>
+                        </div>
                     </div>
 
                     <div className={styles.actions}>

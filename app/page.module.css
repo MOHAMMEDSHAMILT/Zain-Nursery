@@ -206,6 +206,10 @@
     line-height: 1.2;
 }
 
+.contact .sectionTitle {
+    color: #000000;
+}
+
 .introText {
     font-size: 1.15rem;
     color: rgba(255, 255, 255, 0.85);
@@ -691,6 +695,7 @@
 /* Contact & Map */
 .contact {
     padding: 6rem 0;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .contactFlex {
