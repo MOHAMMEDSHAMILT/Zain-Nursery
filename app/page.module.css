@@ -216,6 +216,83 @@
     color: rgba(255, 255, 255, 0.85);
 }
 
+/* Animations for Story */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animateFadeInLeft {
+    animation: fadeInLeft 1s ease-out forwards;
+}
+
+.animateFadeInRight {
+    animation: fadeInRight 1s ease-out forwards;
+}
+
+/* Responsive tweaks for Story section */
+@media (max-width: 1024px) {
+    .introFlex {
+        gap: 3rem;
+    }
+
+    .sectionTitle {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro {
+        padding: 5rem 0;
+    }
+
+    .introFlex {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .introContent {
+        text-align: center;
+        flex: 1;
+    }
+
+    .sectionTitle {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .introText {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .animateFadeInLeft,
+    .animateFadeInRight {
+        animation-name: fadeInUp;
+        /* Use a standard fade-up on mobile instead of side slides */
+    }
+}
+
 /* Featured Section */
 .featured {
     padding: 5rem 0;

@@ -22,7 +22,7 @@ export default function Navbar() {
             <nav className={styles.navbar}>
                 <div className={`${styles.container} container`}>
                     <Link href="/" className={styles.logo}>
-                        <span className="material-symbols-outlined text-primary" style={{ fontSize: '2rem', fontWeight: 'bold' }}>potted_plant</span>
+                        <span className={`material-symbols-outlined ${styles.logoIcon}`}>potted_plant</span>
                         <span className={styles.logoText}>Zain<span className="text-primary"> Nursery</span></span>
                     </Link>
 

@@ -46,6 +46,7 @@
         0 10px 10px rgba(0, 0, 0, .2),
         0 20px 20px rgba(0, 0, 0, .15);
     transition: all 0.3s ease;
+    line-height: 1.1;
 }
 
 .logo:hover .logoText {
@@ -61,15 +62,13 @@
 }
 
 .logoIcon {
-    width: 32px;
-    height: 32px;
-    background-color: var(--primary);
-    border-radius: 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    padding: 4px;
+    transition: all 0.3s ease;
 }
 
 .navLinks {
@@ -227,10 +226,23 @@
 }
 
 @media (max-width: 768px) {
+    .logoText {
+        font-size: 1.4rem;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logoIcon {
+        font-size: 1.6rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
     .navLinks {
         display: none;
         position: absolute;
-        top: 80px;
+        top: 4.5rem;
         left: 0;
         right: 0;
         background: white;
@@ -238,6 +250,7 @@
         padding: 2rem;
         gap: 1.5rem;
         border-bottom: 1px solid var(--border);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
 
     .navLinks.active {
@@ -248,6 +261,33 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .contactIconBtn {
+        width: 1.9rem;
+        height: 1.9rem;
+    }
+
+    .contactIconBtn span {
+        font-size: 1rem;
+    }
+
+    .centerAction {
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .logoText {
+        font-size: 1.25rem;
+    }
+
+    .actions {
+        gap: 0.25rem;
+    }
+
+    .iconBtn {
+        padding: 0.4rem;
     }
 }
 
