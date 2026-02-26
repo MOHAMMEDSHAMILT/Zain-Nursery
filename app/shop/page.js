@@ -31,7 +31,8 @@ export default function Shop() {
     }, []);
 
     // Extract unique categories from products
-    const categories = ['All Plants', ...new Set(products.map(p => p.category))];
+    const validProducts = Array.isArray(products) ? products : [];
+    const categories = ['All Plants', ...new Set(validProducts.filter(p => p && p.category).map(p => p.category))];
 
     const filteredProducts = Array.isArray(products)
         ? (activeCategory === 'All Plants' ? products : products.filter(p => p.category === activeCategory))

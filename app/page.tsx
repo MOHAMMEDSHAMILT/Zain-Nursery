@@ -30,7 +30,15 @@ export default function Home() {
         const data = await res.json();
         // Take first 6 products for display
         if (Array.isArray(data)) {
-          setProducts(data.slice(0, 6));
+          // Add defensive check for product structure before setting
+          const processedProducts = data.slice(0, 6).map(product => ({
+            id: product.id,
+            name: typeof product.name === 'string' ? product.name : 'Unknown Product',
+            category: typeof product.category === 'string' ? product.category : 'Uncategorized',
+            image: typeof product.image === 'string' ? product.image : '/images/placeholder.jpg',
+            price: typeof product.price === 'number' || typeof product.price === 'string' ? parseFloat(product.price) : 0,
+          }));
+          setProducts(processedProducts);
         } else {
           console.error('API did not return an array:', data);
           setProducts([]);
@@ -130,7 +138,7 @@ export default function Home() {
                     <span className={styles.cardCategory}>{product.category}</span>
                     <h3 className={styles.cardTitle}>{product.name}</h3>
                     <div className={styles.cardBottom}>
-                      <span className={styles.price}>₹{product.price ? product.price.toFixed(2) : '0.00'}</span>
+                      <span className={styles.price}>₹{typeof product.price === 'number' ? product.price.toFixed(2) : (parseFloat(product.price) || 0).toFixed(2)}</span>
                       <a
                         href={`https://wa.me/919605088858?text=Hi, I'm interested in the ${product.name} (₹${product.price})`}
                         target="_blank"
