@@ -91,7 +91,11 @@ export default function AdminDashboard() {
     const fetchSettings = async () => {
         try {
             const res = await fetch('/api/settings');
-            const data = await res.json();
+            let data = await res.json();
+            // Handle array response from MongoDB
+            if (Array.isArray(data)) {
+                data = data[0] || { storeName: '', adminEmail: '', currency: 'INR (₹)' };
+            }
             if (data && typeof data === 'object') {
                 setSettings(data);
             }
@@ -481,7 +485,7 @@ export default function AdminDashboard() {
                                                         {p.stock} in stock
                                                     </span>
                                                 </td>
-                                                <td>${settings.currency.includes('₹') || settings.currency.includes('INR') ? '₹' : '$'}{p.price.toFixed(2)}</td>
+                                                <td>{settings?.currency?.includes('₹') || settings?.currency?.includes('INR') ? '₹' : '$'}{p.price.toFixed(2)}</td>
                                                 <td>
                                                     <div className={styles.actionBtns}>
                                                         <button className={styles.editBtn} onClick={() => handleEditClick(p)}>Edit</button>
