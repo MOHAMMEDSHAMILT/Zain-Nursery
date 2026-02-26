@@ -6,9 +6,7 @@ export async function GET() {
         const products = await getData('products.json');
         return Response.json(products);
     } catch (error) {
-        if (error.message === 'NO_DATABASE_CONFIGURED') {
-            return Response.json({ error: 'Database not connected in Vercel. Please add MONGODB_URI.' }, { status: 503 });
-        }
+        console.error('API GET Error:', error);
         return Response.json({ error: 'Failed to load products' }, { status: 500 });
     }
 }
@@ -34,7 +32,6 @@ export async function POST(request) {
             await productsCollection.insertOne(productWithId);
             return Response.json({ message: 'Product added successfully', product: productWithId }, { status: 201 });
         } else {
-            // File Mode (or KV fallback)
             const products = await getData('products.json');
             const productWithId = {
                 ...newProduct,
@@ -47,10 +44,12 @@ export async function POST(request) {
         }
     } catch (error) {
         console.error('API POST Error:', error);
-        if (error.message === 'NO_DATABASE_CONFIGURED') {
-            return Response.json({ error: 'Production save failed: Database not configured. Please add MONGODB_URI to Vercel.' }, { status: 503 });
+        if (error.message === 'READ_ONLY_FILESYSTEM') {
+            return Response.json({
+                error: 'DATABASE_REQUIRED: To add products on the live site, you must connect a Database (MongoDB or Vercel KV) in Vercel settings.'
+            }, { status: 503 });
         }
-        return Response.json({ error: 'Failed to add product. Check if the image it too large (Vercel max 4MB).' }, { status: 500 });
+        return Response.json({ error: 'Failed to add product' }, { status: 500 });
     }
 }
 
@@ -80,10 +79,12 @@ export async function PUT(request) {
         }
     } catch (error) {
         console.error('API PUT Error:', error);
-        if (error.message === 'NO_DATABASE_CONFIGURED') {
-            return Response.json({ error: 'Production save failed: Database not configured. Please add MONGODB_URI to Vercel.' }, { status: 503 });
+        if (error.message === 'READ_ONLY_FILESYSTEM') {
+            return Response.json({
+                error: 'DATABASE_REQUIRED: To edit products on the live site, you must connect a Database (MongoDB or Vercel KV) in Vercel settings.'
+            }, { status: 503 });
         }
-        return Response.json({ error: 'Failed to update product. The image might be too large.' }, { status: 500 });
+        return Response.json({ error: 'Failed to update product' }, { status: 500 });
     }
 }
 
@@ -109,8 +110,8 @@ export async function DELETE(request) {
             return Response.json({ message: 'Product deleted successfully' });
         }
     } catch (error) {
-        if (error.message === 'NO_DATABASE_CONFIGURED') {
-            return Response.json({ error: 'Production delete failed: Database not configured.' }, { status: 503 });
+        if (error.message === 'READ_ONLY_FILESYSTEM') {
+            return Response.json({ error: 'DATABASE_REQUIRED: Database connection needed for deletions on live site.' }, { status: 503 });
         }
         return Response.json({ error: 'Failed to delete product' }, { status: 500 });
     }
