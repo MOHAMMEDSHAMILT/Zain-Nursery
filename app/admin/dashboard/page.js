@@ -191,11 +191,7 @@ export default function AdminDashboard() {
                     alert('Product updated successfully!');
                 } else {
                     const errorData = await res.json();
-                    if (res.status === 500 && !process.env.MONGODB_URI) {
-                        alert('ERROR: The live site requires a Database to save changes. Please configure MONGODB_URI in Vercel settings.');
-                    } else {
-                        alert(errorData.error || 'Failed to update product');
-                    }
+                    alert(errorData.error || 'Failed to update product');
                 }
             } else {
                 const res = await fetch('/api/products', {
@@ -211,11 +207,7 @@ export default function AdminDashboard() {
                     alert('Product added successfully!');
                 } else {
                     const errorData = await res.json();
-                    if (res.status === 500) {
-                        alert('ERROR: Cannot save on live site without a Database. Please connect MongoDB in Vercel.');
-                    } else {
-                        alert(errorData.error || 'Failed to add product');
-                    }
+                    alert(errorData.error || 'Failed to add product');
                 }
             }
         } catch (error) {
