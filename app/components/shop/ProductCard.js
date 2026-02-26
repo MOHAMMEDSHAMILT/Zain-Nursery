@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
                 <span className={styles.category}>{product.category}</span>
                 <h3 className={styles.name}>{product.name}</h3>
                 <div className={styles.footer}>
-                    <span className={styles.price}>₹{product.price.toFixed(2)}</span>
+                    <span className={styles.price}>₹{typeof product.price === 'number' ? product.price.toFixed(2) : '0.00'}</span>
                     <a
                         href={`https://wa.me/919605088858?text=Hi, I'm interested in the ${product.name} (₹${product.price})`}
                         target="_blank"

@@ -190,8 +190,15 @@ export default function AdminDashboard() {
                     setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
                     alert('Product updated successfully!');
                 } else {
-                    const errorData = await res.json();
-                    alert(errorData.error || 'Failed to update product');
+                    const contentType = res.headers.get('content-type');
+                    let errorMessage = 'Failed to update product';
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await res.json();
+                        errorMessage = errorData.error || errorMessage;
+                    } else {
+                        errorMessage = `Error (${res.status}): Please check your database connection.`;
+                    }
+                    alert(errorMessage);
                 }
             } else {
                 const res = await fetch('/api/products', {
@@ -206,8 +213,15 @@ export default function AdminDashboard() {
                     setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
                     alert('Product added successfully!');
                 } else {
-                    const errorData = await res.json();
-                    alert(errorData.error || 'Failed to add product');
+                    const contentType = res.headers.get('content-type');
+                    let errorMessage = 'Failed to add product';
+                    if (contentType && contentType.includes('application/json')) {
+                        const errorData = await res.json();
+                        errorMessage = errorData.error || errorMessage;
+                    } else {
+                        errorMessage = `Error (${res.status}): Please check your database connection.`;
+                    }
+                    alert(errorMessage);
                 }
             }
         } catch (error) {
