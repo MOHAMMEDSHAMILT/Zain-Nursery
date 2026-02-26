@@ -3,9 +3,11 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "migrate": "node migrate.js"
   },
   "dependencies": {
+    "mongodb": "^7.1.0",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -14,6 +16,7 @@
     "@types/node": "20.10.8",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
+    "dotenv": "^17.3.1",
     "typescript": "^5.3.3"
   }
 }
