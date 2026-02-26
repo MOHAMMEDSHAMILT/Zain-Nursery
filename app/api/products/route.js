@@ -41,6 +41,7 @@ export async function POST(request) {
 
         return Response.json({ message: 'Product added successfully', product: productWithId }, { status: 201 });
     } catch (error) {
+        console.error('API POST Error:', error);
         return Response.json({ error: 'Failed to add product' }, { status: 500 });
     }
 }
@@ -63,6 +64,7 @@ export async function PUT(request) {
 
         return Response.json({ message: 'Product updated successfully', product: products[index] });
     } catch (error) {
+        console.error('API PUT Error:', error);
         return Response.json({ error: 'Failed to update product' }, { status: 500 });
     }
 }

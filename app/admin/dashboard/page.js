@@ -22,6 +22,7 @@ export default function AdminDashboard() {
     const [settings, setSettings] = useState({ storeName: '', adminEmail: '', currency: 'USD ($)' });
     const [saveStatus, setSaveStatus] = useState({ loading: false, success: false });
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const isAdmin = localStorage.getItem('isAdmin');
@@ -113,6 +114,8 @@ export default function AdminDashboard() {
                 setTimeout(() => setSaveStatus({ loading: false, success: false }), 3000);
             }
         } catch (error) {
+            console.error('Error saving settings:', error);
+            alert('Failed to save settings');
             setSaveStatus({ loading: false, success: false });
         }
     };
@@ -156,39 +159,56 @@ export default function AdminDashboard() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const product = {
-            name: newProduct.name,
-            category: newProduct.category,
-            price: parseFloat(newProduct.price),
-            stock: parseInt(newProduct.stock),
-            image: newProduct.image
-        };
+        setIsSubmitting(true);
+        try {
+            const product = {
+                name: newProduct.name,
+                category: newProduct.category,
+                price: parseFloat(newProduct.price),
+                stock: parseInt(newProduct.stock),
+                image: newProduct.image
+            };
 
-        if (isEditing) {
-            product.id = currentProductId;
-            const res = await fetch('/api/products', {
-                method: 'PUT',
-                body: JSON.stringify(product),
-                headers: { 'Content-Type': 'application/json' }
-            });
-            if (res.ok) {
-                fetchProducts();
-                setIsEditing(false);
-                setCurrentProductId(null);
-                setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
-            }
-        } else {
-            const res = await fetch('/api/products', {
-                method: 'POST',
-                body: JSON.stringify(product),
-                headers: { 'Content-Type': 'application/json' }
-            });
+            if (isEditing) {
+                product.id = currentProductId;
+                const res = await fetch('/api/products', {
+                    method: 'PUT',
+                    body: JSON.stringify(product),
+                    headers: { 'Content-Type': 'application/json' }
+                });
 
-            if (res.ok) {
-                fetchProducts();
-                setIsAdding(false);
-                setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
+                if (res.ok) {
+                    await fetchProducts();
+                    setIsEditing(false);
+                    setCurrentProductId(null);
+                    setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
+                    alert('Product updated successfully!');
+                } else {
+                    const errorData = await res.json();
+                    alert(errorData.error || 'Failed to update product');
+                }
+            } else {
+                const res = await fetch('/api/products', {
+                    method: 'POST',
+                    body: JSON.stringify(product),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                if (res.ok) {
+                    await fetchProducts();
+                    setIsAdding(false);
+                    setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
+                    alert('Product added successfully!');
+                } else {
+                    const errorData = await res.json();
+                    alert(errorData.error || 'Failed to add product');
+                }
             }
+        } catch (error) {
+            console.error('Error submitting product:', error);
+            alert('An error occurred. The image might be too large.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -293,7 +313,7 @@ export default function AdminDashboard() {
                         <div className={styles.headerActions}>
                             <button
                                 className={`${styles.addBtn} btn btn-primary`}
-                                onClick={() => setIsAdding(true)}
+                                onClick={() => { setIsAdding(true); setIsEditing(false); setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' }); }}
                             >
                                 + Add Plant
                             </button>
@@ -384,8 +404,8 @@ export default function AdminDashboard() {
                                         </div>
                                     </div>
                                     <div className={styles.formActions}>
-                                        <button type="submit" className="btn btn-primary">
-                                            {isEditing ? 'Update Product' : 'Save Product'}
+                                        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                            {isSubmitting ? 'Saving...' : (isEditing ? 'Update Product' : 'Save Product')}
                                         </button>
                                         <button
                                             type="button"
