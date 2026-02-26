@@ -7,6 +7,7 @@
     "migrate": "node migrate.js"
   },
   "dependencies": {
+    "@vercel/kv": "^3.0.0",
     "mongodb": "^7.1.0",
     "next": "latest",
     "react": "^18.2.0",

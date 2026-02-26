@@ -1,53 +1,62 @@
 const { MongoClient } = require('mongodb');
+const { createClient } = require('@vercel/kv');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config({ path: '.env.local' });
 
 async function migrate() {
-    const uri = process.env.MONGODB_URI;
-    if (!uri) {
-        console.error('Error: MONGODB_URI not found in .env.local');
+    const mongoUri = process.env.MONGODB_URI;
+    const kvUrl = process.env.KV_URL;
+
+    if (!mongoUri && !kvUrl) {
+        console.error('Error: Neither MONGODB_URI nor KV_URL found in .env.local');
         return;
     }
 
-    const client = new MongoClient(uri);
-    try {
-        await client.connect();
-        console.log('Connected to MongoDB Atlas...');
-        const db = client.db('zain-nursery');
+    const files = ['products.json', 'messages.json', 'settings.json'];
 
-        const files = ['products.json', 'messages.json', 'settings.json'];
-
-        for (const file of files) {
-            const collectionName = file.replace('.json', '');
-            const filePath = path.join(__dirname, 'app/data', file);
-
-            if (fs.existsSync(filePath)) {
-                const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-                const collection = db.collection(collectionName);
-
-                console.log(`Migrating ${file}...`);
-
-                if (Array.isArray(data)) {
-                    if (data.length > 0) {
-                        await collection.deleteMany({});
-                        await collection.insertMany(data);
-                        console.log(`Successfully migrated ${data.length} items to ${collectionName}`);
-                    }
-                } else {
-                    // It's an object (like settings)
+    // Migrate to MongoDB if URI exists
+    if (mongoUri) {
+        console.log('Detected MongoDB URI. Starting MongoDB migration...');
+        const client = new MongoClient(mongoUri);
+        try {
+            await client.connect();
+            const db = client.db('zain-nursery');
+            for (const file of files) {
+                const filePath = path.join(__dirname, 'app/data', file);
+                if (fs.existsSync(filePath)) {
+                    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                    const collection = db.collection(file.replace('.json', ''));
                     await collection.deleteMany({});
-                    await collection.insertOne(data);
-                    console.log(`Successfully migrated ${collectionName} settings`);
+                    if (Array.isArray(data)) {
+                        if (data.length > 0) await collection.insertMany(data);
+                    } else {
+                        await collection.insertOne(data);
+                    }
+                    console.log(`Migrated ${file} to MongoDB`);
                 }
             }
-        }
-        console.log('Migration complete!');
-    } catch (e) {
-        console.error('Migration failed:', e);
-    } finally {
-        await client.close();
+        } finally { await client.close(); }
     }
+
+    // Migrate to Vercel KV if URL exists
+    if (kvUrl) {
+        console.log('Detected KV URL. Starting Vercel KV migration...');
+        const kv = createClient({
+            url: process.env.KV_REST_API_URL,
+            token: process.env.KV_REST_API_TOKEN,
+        });
+        for (const file of files) {
+            const filePath = path.join(__dirname, 'app/data', file);
+            if (fs.existsSync(filePath)) {
+                const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+                await kv.set(file.replace('.json', ''), data);
+                console.log(`Migrated ${file} to Vercel KV`);
+            }
+        }
+    }
+
+    console.log('Migration complete!');
 }
 
 migrate();
