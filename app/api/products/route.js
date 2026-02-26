@@ -65,6 +65,7 @@ export async function PUT(request) {
                 { returnDocument: 'after' }
             );
             if (!result) return Response.json({ error: 'Product not found' }, { status: 404 });
+            // In MongoDB ^6.0.0 findOneAndUpdate returns the document directly with returnDocument: 'after'
             return Response.json({ message: 'Product updated successfully', product: result });
         } else {
             // File Mode

@@ -149,6 +149,12 @@ export default function AdminDashboard() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Check file size (Vercel limit is ~4.5MB, so we cap at 3MB to be safe with Base64 overhead)
+            if (file.size > 3 * 1024 * 1024) {
+                alert('Image is too large! Please choose a file smaller than 3MB.');
+                e.target.value = ''; // Reset input
+                return;
+            }
             const reader = new FileReader();
             reader.onloadend = () => {
                 setNewProduct({ ...newProduct, image: reader.result });
@@ -185,7 +191,11 @@ export default function AdminDashboard() {
                     alert('Product updated successfully!');
                 } else {
                     const errorData = await res.json();
-                    alert(errorData.error || 'Failed to update product');
+                    if (res.status === 500 && !process.env.MONGODB_URI) {
+                        alert('ERROR: The live site requires a Database to save changes. Please configure MONGODB_URI in Vercel settings.');
+                    } else {
+                        alert(errorData.error || 'Failed to update product');
+                    }
                 }
             } else {
                 const res = await fetch('/api/products', {
@@ -201,7 +211,11 @@ export default function AdminDashboard() {
                     alert('Product added successfully!');
                 } else {
                     const errorData = await res.json();
-                    alert(errorData.error || 'Failed to add product');
+                    if (res.status === 500) {
+                        alert('ERROR: Cannot save on live site without a Database. Please connect MongoDB in Vercel.');
+                    } else {
+                        alert(errorData.error || 'Failed to add product');
+                    }
                 }
             }
         } catch (error) {
