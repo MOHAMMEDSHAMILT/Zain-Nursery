@@ -1,3 +1,5 @@
+import styles from './ProductCard.module.css';
+
 export default function ProductCard({ product, onImageClick }) {
     return (
         <div className={styles.card}>
