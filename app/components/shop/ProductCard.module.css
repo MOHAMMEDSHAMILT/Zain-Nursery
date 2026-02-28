@@ -90,12 +90,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.25rem;
 }
 
 .price {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    color: var(--text-main);
+    color: var(--text-dark);
+}
+
+.wholesaleLabel {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: white;
+    background: var(--primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
 }
 
 .contactBtn {
@@ -107,10 +120,127 @@
     font-weight: 700;
     transition: all 0.3s ease;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .contactBtn:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(17, 212, 82, 0.2);
+}
+
+.imageContainer {
+    position: relative;
+    aspect-ratio: 1 / 1.1;
+    background-color: #f7f7f7;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.viewOverlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    color: white;
+}
+
+.imageContainer:hover .viewOverlay {
+    opacity: 1;
+}
+
+.viewOverlay span {
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 0.75rem;
+    border-radius: 50%;
+}
+
+/* Modal / Lightbox Styles */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    color: #333;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modalImage {
+    max-width: 100%;
+    max-height: 70vh;
+    display: block;
+    object-fit: contain;
+}
+
+.modalInfo {
+    padding: 1.5rem;
+    background: white;
+}
+
+.modalInfo h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.modalInfo p {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        padding: 1rem;
+    }
+
+    .price {
+        font-size: 1.1rem;
+    }
 }

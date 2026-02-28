@@ -10,6 +10,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bgIndex, setBgIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const backgroundImages = [
     'https://lh3.googleusercontent.com/aida-public/AB6AXuBzmGJ150eNL_2BFjwln4kOVWF3Duflm-YhSa05td8XL9046Txd8nQ4nCBukeRxbVjNgHEnnj_kvltDKirRGTAkBhclggD2uvnQR8uDH1CaTOGY1ScLOC8jfULAsY1prcd0bDubEu8To1DkoC1nH2CbNY8L7GyMQV9z5cqNxAfaC2xjH3GPAPZWyIFWwmaEuCpeP5_Noucr7FmVdZzUg6940_nMrdntHZB3fMOTST7a2692bI5v2WzOfvA_O-qNwbLCJplWGAMMhrk',
@@ -128,17 +129,21 @@ export default function Home() {
             ) : products.length > 0 ? (
               products.map((product) => (
                 <div key={product.id} className={styles.card}>
-                  <div className={styles.imageWrapper}>
+                  <div className={styles.imageWrapper} onClick={() => setSelectedImage(product)}>
                     <img src={product.image} alt={product.name} className={styles.cardImage} />
-                    <button className={styles.favoriteBtn}>
+                    <button className={styles.favoriteBtn} onClick={e => e.stopPropagation()}>
                       <span className="material-symbols-outlined">favorite</span>
                     </button>
+                    <div className={styles.viewOverlay}>
+                      <span className="material-symbols-outlined">zoom_in</span>
+                    </div>
                   </div>
                   <div className={styles.cardInfo}>
                     <span className={styles.cardCategory}>{product.category}</span>
                     <h3 className={styles.cardTitle}>{product.name}</h3>
                     <div className={styles.cardBottom}>
                       <span className={styles.price}>₹{typeof product.price === 'number' ? product.price.toFixed(2) : (parseFloat(product.price) || 0).toFixed(2)}</span>
+                      <span className={styles.wholesaleLabel}>Wholesale</span>
                       <a
                         href={`https://wa.me/919605088858?text=Hi, I'm interested in the ${product.name} (₹${product.price})`}
                         target="_blank"
@@ -314,6 +319,20 @@ export default function Home() {
 
       <Footer />
 
+      {selectedImage && (
+        <div className={styles.modal} onClick={() => setSelectedImage(null)}>
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={() => setSelectedImage(null)}>
+              <span className="material-symbols-outlined">close</span>
+            </button>
+            <img src={selectedImage.image} alt={selectedImage.name} className={styles.modalImage} />
+            <div className={styles.modalInfo}>
+              <h3>{selectedImage.name}</h3>
+              <p>₹{selectedImage.price} - Wholesale Price</p>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
