@@ -113,7 +113,13 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                             products.map((product) => (
                                 <div key={product.id} className={styles.card}>
                                     <div className={styles.imageWrapper} onClick={() => setSelectedImage(product)}>
-                                        <img src={product.image} alt={product.name} className={styles.cardImage} />
+                                        <img
+                                            src={product.image}
+                                            alt={product.name}
+                                            className={styles.cardImage}
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
                                         <button className={styles.favoriteBtn} onClick={e => e.stopPropagation()}>
                                             <span className="material-symbols-outlined">favorite</span>
                                         </button>
@@ -193,7 +199,12 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                         <div className={styles.modelCard}>
                             <div className={styles.modelImage}>
                                 <span className={styles.newsPrice}>₹450</span>
-                                <img src="/images/jackfruit_final.jpg" alt="Premium Honey Jackfruit" />
+                                <img
+                                    src="/images/jackfruit_final.jpg"
+                                    alt="Premium Honey Jackfruit"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
                             </div>
                             <div className={styles.modelContent}>
                                 <h3 className={styles.modelTitle}>HONEY JACKFRUIT</h3>
@@ -209,7 +220,12 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                         <div className={styles.modelCard}>
                             <div className={styles.modelImage}>
                                 <span className={styles.newsPrice}>₹350</span>
-                                <img src="/artifacts/mangosteen_fruit_detail_1772283126335.png" alt="Mangosteen" />
+                                <img
+                                    src="/images/mangosteen-detail.png"
+                                    alt="Mangosteen"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
                             </div>
                             <div className={styles.modelContent}>
                                 <h3 className={styles.modelTitle}>MANGOSTEEN</h3>
@@ -225,7 +241,12 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                         <div className={styles.modelCard}>
                             <div className={styles.modelImage}>
                                 <span className={styles.newsPrice}>₹180</span>
-                                <img src="/images/coconut_final.jpg" alt="Coconut Plants" />
+                                <img
+                                    src="/images/coconut_final.jpg"
+                                    alt="Coconut Plants"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
                             </div>
                             <div className={styles.modelContent}>
                                 <h3 className={styles.modelTitle}>COCUTNUT PLANTS</h3>
@@ -262,7 +283,12 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                             <h2 className={styles.storyTitle}>Research & Development</h2>
                             <div className={styles.rdContent}>
                                 <div className={styles.rdImage}>
-                                    <img src="/artifacts/research_development_nursery_1772283099544.png" alt="R&D Lab" />
+                                    <img
+                                        src="/images/research-lab.png"
+                                        alt="R&D Lab"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
                                 </div>
                                 <p className={styles.rdText}>
                                     Zain Nursery Biotech, having studied and proven that many of the tropical fruits of Southeast Asian origin can be profitably cultivated in the Indian soil, is investing a great deal of effort and resources into active research - not only into the acclimatization of these fruit trees to Indian geographical conditions, but also into developing new and improved varieties of fruits.
@@ -350,7 +376,12 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                         <button className={styles.closeBtn} onClick={() => setSelectedImage(null)}>
                             <span className="material-symbols-outlined">close</span>
                         </button>
-                        <img src={selectedImage.image} alt={selectedImage.name} className={styles.modalImage} />
+                        <img
+                            src={selectedImage.image}
+                            alt={selectedImage.name}
+                            className={styles.modalImage}
+                            loading="eager"
+                        />
                         <div className={styles.modalInfo}>
                             <h3>{selectedImage.name}</h3>
                             <p>₹{selectedImage.price} - Wholesale Price</p>

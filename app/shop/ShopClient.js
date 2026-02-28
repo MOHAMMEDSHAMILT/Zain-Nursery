@@ -5,11 +5,13 @@ import Link from 'next/link';
 import Navbar from '../components/layout/Navbar';
 import ProductCard from '../components/shop/ProductCard';
 import styles from './page.module.css';
+import cardStyles from '../components/shop/ProductCard.module.css';
 
 export default function ShopClient({ initialProducts }) {
     const [products, setProducts] = useState(initialProducts || []);
     const [activeCategory, setActiveCategory] = useState('All Plants');
     const [visibleCount, setVisibleCount] = useState(6);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     // Fetch full data (with images) on the client side to bypass Vercel's payload limits
     useEffect(() => {
@@ -18,7 +20,6 @@ export default function ShopClient({ initialProducts }) {
                 const res = await fetch('/api/products');
                 const fullData = await res.json();
                 if (Array.isArray(fullData)) {
-                    // Update the state with full data including images
                     setProducts(fullData);
                 }
             } catch (err) {
@@ -29,8 +30,6 @@ export default function ShopClient({ initialProducts }) {
     }, []);
 
     const validProducts = Array.isArray(products) ? products : [];
-
-    // Extract unique categories from products
     const categories = ['All Plants', ...new Set(validProducts.filter(p => p && p.category).map(p => p.category))];
 
     const filteredProducts = activeCategory === 'All Plants'
@@ -75,7 +74,11 @@ export default function ShopClient({ initialProducts }) {
             <section className={`${styles.productGrid} container`}>
                 {visibleProducts.length > 0 ? (
                     visibleProducts.map(product => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                            onImageClick={(p) => setSelectedProduct(p)}
+                        />
                     ))
                 ) : (
                     <div style={{ textAlign: 'center', width: '100%', padding: '2rem' }}>
@@ -87,6 +90,35 @@ export default function ShopClient({ initialProducts }) {
             {visibleCount < filteredProducts.length && (
                 <div className={styles.loadMoreContainer}>
                     <button className={styles.loadMoreBtn} onClick={handleLoadMore}>Load More</button>
+                </div>
+            )}
+
+            {selectedProduct && (
+                <div className={cardStyles.modal} onClick={() => setSelectedProduct(null)}>
+                    <div className={cardStyles.modalContent} onClick={e => e.stopPropagation()}>
+                        <button className={cardStyles.closeBtn} onClick={() => setSelectedProduct(null)}>
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                        <img
+                            src={selectedProduct.image}
+                            alt={selectedProduct.name}
+                            className={cardStyles.modalImage}
+                            loading="eager"
+                        />
+                        <div className={cardStyles.modalInfo}>
+                            <h3>{selectedProduct.name}</h3>
+                            <p>₹{selectedProduct.price} - Wholesale Price</p>
+                            <a
+                                href={`https://wa.me/919605088858?text=Hi, I'm interested in the ${selectedProduct.name}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={cardStyles.contactBtn}
+                                style={{ marginTop: '1rem' }}
+                            >
+                                Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
                 </div>
             )}
         </main>
