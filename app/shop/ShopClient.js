@@ -1,16 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/layout/Navbar';
 import ProductCard from '../components/shop/ProductCard';
 import styles from './page.module.css';
 
 export default function ShopClient({ initialProducts }) {
+    const [products, setProducts] = useState(initialProducts || []);
     const [activeCategory, setActiveCategory] = useState('All Plants');
     const [visibleCount, setVisibleCount] = useState(6);
 
-    const products = initialProducts || [];
+    // Fetch full data (with images) on the client side to bypass Vercel's payload limits
+    useEffect(() => {
+        const fetchFullData = async () => {
+            try {
+                const res = await fetch('/api/products');
+                const fullData = await res.json();
+                if (Array.isArray(fullData)) {
+                    // Update the state with full data including images
+                    setProducts(fullData);
+                }
+            } catch (err) {
+                console.error('Failed to load full product images:', err);
+            }
+        };
+        fetchFullData();
+    }, []);
+
     const validProducts = Array.isArray(products) ? products : [];
 
     // Extract unique categories from products

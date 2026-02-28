@@ -14,7 +14,9 @@ export default async function Shop() {
                 name: p.name || 'Unnamed Plant',
                 category: p.category || 'Other',
                 price: Number(p.price) || 0,
-                image: typeof p.image === 'string' ? p.image : '/images/placeholder.jpg',
+                // Important: Exclude heavy Base64 image from initial props to stay under Vercel's payload limit (128KB)
+                // Images will be lazy-loaded on the client side
+                image: null,
                 stock: p.stock !== undefined ? Number(p.stock) : 0
             }));
         }

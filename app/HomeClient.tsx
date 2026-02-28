@@ -9,6 +9,7 @@ import Link from 'next/link';
 export default function HomeClient({ initialProducts }: { initialProducts: any[] }) {
     const [bgIndex, setBgIndex] = useState(0);
     const [selectedImage, setSelectedImage] = useState<any>(null);
+    const [productsWithImages, setProductsWithImages] = useState(initialProducts);
 
     const backgroundImages = [
         'https://lh3.googleusercontent.com/aida-public/AB6AXuBzmGJ150eNL_2BFjwln4kOVWF3Duflm-YhSa05td8XL9046Txd8nQ4nCBukeRxbVjNgHEnnj_kvltDKirRGTAkBhclggD2uvnQR8uDH1CaTOGY1ScLOC8jfULAsY1prcd0bDubEu8To1DkoC1nH2CbNY8L7GyMQV9z5cqNxAfaC2xjH3GPAPZWyIFWwmaEuCpeP5_Noucr7FmVdZzUg6940_nMrdntHZB3fMOTST7a2692bI5v2WzOfvA_O-qNwbLCJplWGAMMhrk',
@@ -22,7 +23,24 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
         return () => clearInterval(timer);
     }, []);
 
-    const products = initialProducts.slice(0, 6);
+    // Load full product images in background to avoid Vercel 128KB payload limit
+    useEffect(() => {
+        const fetchFullData = async () => {
+            try {
+                const res = await fetch('/api/products');
+                const fullData = await res.json();
+                if (Array.isArray(fullData)) {
+                    // Update only those products we are showing initial data for
+                    setProductsWithImages(fullData.slice(0, 6));
+                }
+            } catch (err) {
+                console.error('Failed to pre-fetch home images:', err);
+            }
+        };
+        fetchFullData();
+    }, []);
+
+    const products = productsWithImages;
 
     return (
         <main className={styles.home}>

@@ -12,7 +12,9 @@ export default async function Home() {
         id: product.id,
         name: typeof product.name === 'string' ? product.name : 'Unknown Product',
         category: typeof product.category === 'string' ? product.category : 'Uncategorized',
-        image: typeof product.image === 'string' ? product.image : '/images/placeholder.jpg',
+        // Important: Exclude heavy Base64 image from initial props to stay under Vercel's payload limit (128KB)
+        // Images will be lazy-loaded on the client side
+        image: null,
         price: Number(product.price) || 0,
         stock: product.stock !== undefined ? Number(product.stock) : 0,
       }));
