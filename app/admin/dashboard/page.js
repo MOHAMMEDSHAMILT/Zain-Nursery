@@ -150,20 +150,59 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleFileChange = (e) => {
+    const compressImage = (file) => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 1000; // Max dimension
+
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    // Use 0.7 quality to significantly reduce size while keeping good visuals
+                    resolve(canvas.toDataURL('image/jpeg', 0.7));
+                };
+            };
+        });
+    };
+
+    const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            // Check file size (Vercel limit is ~4.5MB, so we cap at 3MB to be safe with Base64 overhead)
-            if (file.size > 3 * 1024 * 1024) {
-                alert('Image is too large! Please choose a file smaller than 3MB.');
-                e.target.value = ''; // Reset input
+            // Check file size (Increase to 10MB since we will compress it)
+            if (file.size > 10 * 1024 * 1024) {
+                alert('Image is too large! Please choose a file smaller than 10MB.');
+                e.target.value = '';
                 return;
             }
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setNewProduct({ ...newProduct, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+
+            try {
+                const compressedBase64 = await compressImage(file);
+                setNewProduct({ ...newProduct, image: compressedBase64 });
+            } catch (error) {
+                console.error('Error compressing image:', error);
+                alert('Failed to process image. Please try another one.');
+            }
         }
     };
 
