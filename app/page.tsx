@@ -13,7 +13,7 @@ export default async function Home() {
         name: typeof product.name === 'string' ? product.name : 'Unknown Product',
         category: typeof product.category === 'string' ? product.category : 'Uncategorized',
         image: typeof product.image === 'string' ? product.image : '/images/placeholder.jpg',
-        price: typeof product.price === 'number' || typeof product.price === 'string' ? parseFloat(product.price as string) : 0,
+        price: Number(product.price) || 0,
         stock: product.stock !== undefined ? Number(product.stock) : 0,
       }));
     }
