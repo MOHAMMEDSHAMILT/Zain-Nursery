@@ -1,4 +1,5 @@
 import { getData, saveData, getCollection } from '../../../lib/db';
+import { isAuthenticated } from '../auth';
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
@@ -20,6 +21,9 @@ export async function GET() {
 }
 
 export async function POST(request) {
+    if (!await isAuthenticated()) {
+        return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     try {
         const newSettings = await request.json();
         const settingsCollection = await getCollection('settings');

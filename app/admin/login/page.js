@@ -14,6 +14,7 @@ export default function AdminLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        localStorage.removeItem('isAdmin');
 
         try {
             const res = await fetch('/api/login', {
