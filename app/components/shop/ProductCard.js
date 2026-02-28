@@ -23,11 +23,17 @@ export default function ProductCard({ product }) {
                 <div className={styles.info}>
                     <span className={styles.category}>{product.category}</span>
                     <h3 className={styles.name}>{product.name}</h3>
+
+                    <div className={styles.productStatus}>
+                        <span className={styles.stockLabel}>📦 {product.stock || 0} in stock</span>
+                    </div>
+
+                    <div className={styles.rateGroup}>
+                        <span className={styles.price}>₹{typeof product.price === 'number' ? product.price.toFixed(2) : (parseFloat(product.price) || 0).toFixed(2)}</span>
+                        <span className={styles.wholesaleLabel}>Wholesale Rate</span>
+                    </div>
+
                     <div className={styles.footer}>
-                        <div className={styles.rateGroup}>
-                            <span className={styles.price}>₹{typeof product.price === 'number' ? product.price.toFixed(2) : (parseFloat(product.price) || 0).toFixed(2)}</span>
-                            <span className={styles.wholesaleLabel}>Wholesale Rate</span>
-                        </div>
                         <a
                             href={`https://wa.me/919605088858?text=Hi, I'm interested in the ${product.name} (₹${product.price})`}
                             target="_blank"
@@ -36,9 +42,6 @@ export default function ProductCard({ product }) {
                         >
                             Contact Us
                         </a>
-                    </div>
-                    <div className={styles.productStatus}>
-                        <span className={styles.stockLabel}>📦 {product.stock || 0} in stock</span>
                     </div>
                 </div>
             </div>
