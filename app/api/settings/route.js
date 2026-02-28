@@ -1,13 +1,19 @@
 import { getData, saveData, getCollection } from '../../../lib/db';
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export async function GET() {
     try {
         const settings = await getData('settings.json');
         // If MongoDB returns an array, return the first object
         if (Array.isArray(settings) && settings.length > 0) {
-            return Response.json(settings[0]);
+            return Response.json(settings[0], {
+                headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' }
+            });
         }
-        return Response.json(settings);
+        return Response.json(settings, {
+            headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' }
+        });
     } catch (error) {
         return Response.json({ error: 'Failed to load settings' }, { status: 500 });
     }

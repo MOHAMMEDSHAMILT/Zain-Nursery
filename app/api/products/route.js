@@ -1,10 +1,16 @@
 import { getData, saveData, getCollection } from '../../../lib/db';
 import { isAuthenticated } from '../auth';
 
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export async function GET() {
     try {
         const products = await getData('products.json');
-        return Response.json(products);
+        return Response.json(products, {
+            headers: {
+                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300'
+            }
+        });
     } catch (error) {
         console.error('API GET Error:', error);
         return Response.json({ error: 'Failed to load products' }, { status: 500 });
