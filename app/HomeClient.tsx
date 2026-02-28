@@ -209,7 +209,7 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                         <div className={styles.modelCard}>
                             <div className={styles.modelImage}>
                                 <span className={styles.newsPrice}>₹350</span>
-                                <img src="/images/mangosteen_final.jpg" alt="Mangosteen" />
+                                <img src="/artifacts/mangosteen_fruit_detail_1772283126335.png" alt="Mangosteen" />
                             </div>
                             <div className={styles.modelContent}>
                                 <h3 className={styles.modelTitle}>MANGOSTEEN</h3>
@@ -241,13 +241,47 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                 </div>
             </section>
 
+            {/* Farm Stories & R&D Section - 2nd Model Style */}
+            <section className={styles.storiesSection}>
+                <div className="container">
+                    <div className={styles.storiesGrid}>
+                        <div className={styles.videoSection}>
+                            <h2 className={styles.storyTitle}>Farm stories</h2>
+                            <div className={styles.videoWrapper}>
+                                <iframe
+                                    src="https://www.youtube.com/embed/S_7b7pS9P_o"
+                                    title="Mangosteen Cultivation"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                            <Link href="/shop" className={styles.moreBtn}>More Stories</Link>
+                        </div>
+
+                        <div className={styles.rdSection}>
+                            <h2 className={styles.storyTitle}>Research & Development</h2>
+                            <div className={styles.rdContent}>
+                                <div className={styles.rdImage}>
+                                    <img src="/artifacts/research_development_nursery_1772283099544.png" alt="R&D Lab" />
+                                </div>
+                                <p className={styles.rdText}>
+                                    Zain Nursery Biotech, having studied and proven that many of the tropical fruits of Southeast Asian origin can be profitably cultivated in the Indian soil, is investing a great deal of effort and resources into active research - not only into the acclimatization of these fruit trees to Indian geographical conditions, but also into developing new and improved varieties of fruits.
+                                </p>
+                            </div>
+                            <Link href="/about" className={styles.moreBtn}>More Details</Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
             {/* Contact & Map */}
             <section className={styles.contact} id="contact">
                 <div className="container">
+                    <h2 className={styles.sectionTitle} style={{ textAlign: 'center', color: '#fff', marginBottom: '3rem' }}>Visit Our Greenhouse</h2>
+
                     <div className={styles.contactFlex}>
                         <div className={styles.contactCard}>
-                            <h2 className={styles.sectionTitle} style={{ textAlign: 'left' }}>Visit Our Greenhouse</h2>
                             <div className={styles.contactInfo}>
                                 <div className={styles.infoItem}>
                                     <div className={styles.infoIcon}>
