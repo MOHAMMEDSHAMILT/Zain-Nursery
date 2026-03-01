@@ -101,22 +101,21 @@
 }
 
 .price {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #111;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-dark);
 }
 
 .wholesaleLabel {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 800;
     color: white;
-    background: #11d452;
-    padding: 0.35rem 1rem;
-    border-radius: 8px;
+    background: var(--primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.02em;
     width: fit-content;
-    white-space: nowrap;
 }
 
 .contactBtn {
