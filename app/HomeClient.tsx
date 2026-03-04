@@ -270,7 +270,7 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                             <h2 className={styles.storyTitle}>Farm stories</h2>
                             <div className={styles.videoWrapper}>
                                 <iframe
-                                    src="https://www.youtube.com/embed/S_7b7pS9P_o"
+                                    src="https://www.youtube.com/embed/NzZgislq82Y"
                                     title="Mangosteen Cultivation"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowFullScreen
