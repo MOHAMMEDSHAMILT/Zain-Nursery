@@ -894,9 +894,51 @@
 }
 
 @media (max-width: 900px) {
+    .storiesSection {
+        padding: 4rem 0;
+    }
+
     .storiesGrid {
         grid-template-columns: 1fr;
         gap: 4rem;
+    }
+
+    .rdContent {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .rdImage {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .rdText {
+        text-align: center;
+        font-size: 1.05rem;
+    }
+
+    .storyTitle {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .videoSection,
+    .rdSection {
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .storyTitle {
+        font-size: 1.75rem;
+    }
+
+    .rdText {
+        font-size: 1rem;
+        line-height: 1.6;
     }
 }
 
