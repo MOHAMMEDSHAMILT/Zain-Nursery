@@ -294,7 +294,6 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                                     Zain Nursery Biotech is at the forefront of Mangosteen research, dedicating vast resources to the acclimatization and advanced breeding of this "Queen of Fruits." Our R&D team has successfully optimized cultivation techniques for Indian soil, focusing on developing drought-resistant and high-yield Mangosteen varieties. Through continuous scientific study, we ensure our plants are perfectly adapted to local geographical conditions, providing farmers with the most robust and productive tropical varieties available.
                                 </p>
                             </div>
-                            <Link href="/about" className={styles.moreBtn}>More Details</Link>
                         </div>
                     </div>
                 </div>
