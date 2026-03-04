@@ -284,14 +284,14 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                             <div className={styles.rdContent}>
                                 <div className={styles.rdImage}>
                                     <img
-                                        src="/images/research-lab.png"
-                                        alt="R&D Lab"
+                                        src="/images/mangosteen-research.png"
+                                        alt="Mangosteen Research"
                                         loading="lazy"
                                         decoding="async"
                                     />
                                 </div>
                                 <p className={styles.rdText}>
-                                    Zain Nursery Biotech, having studied and proven that many of the tropical fruits of Southeast Asian origin can be profitably cultivated in the Indian soil, is investing a great deal of effort and resources into active research - not only into the acclimatization of these fruit trees to Indian geographical conditions, but also into developing new and improved varieties of fruits.
+                                    Zain Nursery Biotech is at the forefront of Mangosteen research, dedicating vast resources to the acclimatization and advanced breeding of this "Queen of Fruits." Our R&D team has successfully optimized cultivation techniques for Indian soil, focusing on developing drought-resistant and high-yield Mangosteen varieties. Through continuous scientific study, we ensure our plants are perfectly adapted to local geographical conditions, providing farmers with the most robust and productive tropical varieties available.
                                 </p>
                             </div>
                             <Link href="/about" className={styles.moreBtn}>More Details</Link>
