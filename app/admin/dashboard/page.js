@@ -39,6 +39,10 @@ export default function AdminDashboard() {
     const fetchProducts = async () => {
         try {
             const res = await fetch('/api/products');
+            if (res.status === 401) {
+                handleLogout();
+                return;
+            }
             const data = await res.json();
             if (Array.isArray(data)) {
                 setProducts(data);
@@ -55,6 +59,10 @@ export default function AdminDashboard() {
     const fetchMessages = async () => {
         try {
             const res = await fetch('/api/messages');
+            if (res.status === 401) {
+                handleLogout();
+                return;
+            }
             const data = await res.json();
             if (Array.isArray(data)) {
                 setMessages(data);
@@ -77,10 +85,13 @@ export default function AdminDashboard() {
             });
 
             if (res.ok) {
-                fetchMessages();
+                await fetchMessages();
+                alert('Message deleted successfully');
+            } else if (res.status === 401) {
+                handleLogout();
+                alert('Your session has expired. Please login again.');
             } else {
-                const errorData = await res.json();
-                alert(errorData.error || 'Failed to delete message');
+                alert('Failed to delete message');
             }
         } catch (error) {
             console.error('Error deleting message:', error);
@@ -116,6 +127,12 @@ export default function AdminDashboard() {
             if (res.ok) {
                 setSaveStatus({ loading: false, success: true });
                 setTimeout(() => setSaveStatus({ loading: false, success: false }), 3000);
+            } else if (res.status === 401) {
+                handleLogout();
+                alert('Your session has expired. Please login again.');
+            } else {
+                alert('Failed to save settings');
+                setSaveStatus({ loading: false, success: false });
             }
         } catch (error) {
             console.error('Error saving settings:', error);
@@ -139,10 +156,13 @@ export default function AdminDashboard() {
             });
 
             if (res.ok) {
-                fetchProducts();
+                await fetchProducts();
+                alert('Product deleted successfully');
+            } else if (res.status === 401) {
+                handleLogout();
+                alert('Your session has expired. Please login again.');
             } else {
-                const errorData = await res.json();
-                alert(errorData.error || 'Failed to delete product');
+                alert('Failed to delete product');
             }
         } catch (error) {
             console.error('Error deleting product:', error);
@@ -232,6 +252,9 @@ export default function AdminDashboard() {
                     setCurrentProductId(null);
                     setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
                     alert('Product updated successfully!');
+                } else if (res.status === 401) {
+                    handleLogout();
+                    alert('Your session has expired. Please login again.');
                 } else {
                     const contentType = res.headers.get('content-type');
                     let errorMessage = 'Failed to update product';
@@ -255,6 +278,9 @@ export default function AdminDashboard() {
                     setIsAdding(false);
                     setNewProduct({ name: '', category: 'Indoor', price: '', stock: '', image: '' });
                     alert('Product added successfully!');
+                } else if (res.status === 401) {
+                    handleLogout();
+                    alert('Your session has expired. Please login again.');
                 } else {
                     const contentType = res.headers.get('content-type');
                     let errorMessage = 'Failed to add product';

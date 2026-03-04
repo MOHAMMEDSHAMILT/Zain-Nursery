@@ -13,7 +13,7 @@ export async function setAdminAuth() {
     cookieStore.set('adminToken', ADMIN_TOKEN, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'lax',
         maxAge: 60 * 60 * 24, // 24 hours
         path: '/',
     });
