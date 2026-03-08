@@ -79,13 +79,19 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
             <section className={styles.intro} id="about">
                 <div className={`container ${styles.introFlex}`}>
                     <div className={`${styles.introImage} ${styles.animateFadeInLeft}`}>
-                        <img src="/images/story_farmer.png" alt="Zain Nursery Story" />
+                        <img
+                            src="/images/nursery_story_final.jpg"
+                            alt="Zain Nursery Story"
+                            className={styles.storyImage}
+                            loading="lazy"
+                            decoding="async"
+                        />
                     </div>
                     <div className={`${styles.introContent} ${styles.animateFadeInRight}`}>
                         <span className={styles.tagline}>Our Story</span>
                         <h2 className={styles.sectionTitle}>Zain Nursery Garden 🌿</h2>
                         <p className={styles.introText}>
-                            Zain Nursery Garden began with a simple dream — to bring nature closer to every home. What started as a small collection of plants, grown with love and patience, has blossomed into a trusted green space for plant lovers.
+                            Zain Nursery Garden began with a simple dream — to bring nature closer back to every home. What started as a small collection of plants, grown with love and patience, has blossomed into a trusted green space for plant lovers.
                             <br /><br />
                             We believe plants are more than decoration — they bring life, peace, fresh air, and happiness. Every plant in our nursery is carefully nurtured to ensure it reaches you healthy, vibrant, and ready to grow.
                             <br /><br />
