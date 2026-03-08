@@ -151,30 +151,15 @@
 
 /* Intro Section */
 .intro {
-    padding: 10rem 0;
+    padding: 8rem 0;
     overflow: hidden;
-    background: linear-gradient(rgba(10, 35, 20, 0.8), rgba(15, 45, 30, 0.9)), url('/images/nursery_story.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background:
+        linear-gradient(rgba(10, 35, 20, 0.96), rgba(15, 45, 30, 0.96)),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zm0 60c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zm20-20c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zM20 40c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zm20-20c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10z' fill='%231a4d33' fill-opacity='0.15' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-color: #0a2314;
     position: relative;
-    color: #ffffff;
-}
-
-.intro::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.intro>.container {
-    position: relative;
-    z-index: 2;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .introFlex {
@@ -183,11 +168,31 @@
     gap: 5rem;
 }
 
-.introContent {
+.introImage {
     flex: 1;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    position: relative;
+}
+
+.introImage img {
+    width: 100%;
+    height: auto;
+    border-radius: 2rem;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.storyImage:hover {
+    transform: scale(1.02) translateY(-10px);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.05);
+}
+
+.introContent {
+    flex: 1.2;
+    max-width: none;
+    margin: 0;
+    text-align: left;
 }
 
 .tagline {
@@ -203,28 +208,9 @@
 .sectionTitle {
     font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     color: #ffffff;
     line-height: 1.2;
-}
-
-.storyIcon {
-    font-size: 4rem;
-    margin: 1rem 0 2rem 0;
-    display: block;
-    animation: floating 3s ease-in-out infinite;
-}
-
-@keyframes floating {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-15px);
-    }
 }
 
 .contact .sectionTitle {
@@ -266,28 +252,12 @@
     }
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .animateFadeInLeft {
     animation: fadeInLeft 1s ease-out forwards;
 }
 
 .animateFadeInRight {
     animation: fadeInRight 1s ease-out forwards;
-}
-
-.animateFadeInUp {
-    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* Responsive tweaks for Story section */
@@ -303,23 +273,23 @@
 
 @media (max-width: 768px) {
     .intro {
-        padding: 6rem 0;
-        background-attachment: scroll;
-        /* Parallax issues on mobile */
+        padding: 5rem 0;
     }
 
     .introFlex {
         flex-direction: column;
-        gap: 2rem;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .introContent {
+        text-align: center;
+        flex: 1;
     }
 
     .sectionTitle {
-        font-size: 2.22rem;
+        font-size: 2.2rem;
         margin-bottom: 1.5rem;
-    }
-
-    .storyIcon {
-        font-size: 3rem;
     }
 
     .introText {
@@ -330,6 +300,7 @@
     .animateFadeInLeft,
     .animateFadeInRight {
         animation-name: fadeInUp;
+        /* Use a standard fade-up on mobile instead of side slides */
     }
 }
 
