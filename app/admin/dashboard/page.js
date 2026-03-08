@@ -81,7 +81,8 @@ export default function AdminDashboard() {
 
         try {
             const res = await fetch(`/api/messages?id=${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             });
 
             if (res.ok) {
@@ -101,7 +102,7 @@ export default function AdminDashboard() {
 
     const fetchSettings = async () => {
         try {
-            const res = await fetch('/api/settings');
+            const res = await fetch('/api/settings', { credentials: 'include' });
             let data = await res.json();
             // Handle array response from MongoDB
             if (Array.isArray(data)) {
@@ -122,7 +123,8 @@ export default function AdminDashboard() {
             const res = await fetch('/api/settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(settings)
+                body: JSON.stringify(settings),
+                credentials: 'include'
             });
             if (res.ok) {
                 setSaveStatus({ loading: false, success: true });
@@ -142,7 +144,7 @@ export default function AdminDashboard() {
     };
 
     const handleLogout = async () => {
-        await fetch('/api/logout', { method: 'POST' });
+        await fetch('/api/logout', { method: 'POST', credentials: 'include' });
         localStorage.removeItem('isAdmin');
         router.push('/admin/login');
     };
@@ -272,7 +274,8 @@ export default function AdminDashboard() {
                 const res = await fetch('/api/products', {
                     method: 'POST',
                     body: JSON.stringify(product),
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include'
                 });
 
                 if (res.ok) {
