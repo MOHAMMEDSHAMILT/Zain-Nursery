@@ -38,7 +38,7 @@ export default function AdminDashboard() {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch('/api/products');
+            const res = await fetch('/api/products', { credentials: 'include' });
             if (res.status === 401) {
                 handleLogout();
                 return;
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
 
     const fetchMessages = async () => {
         try {
-            const res = await fetch('/api/messages');
+            const res = await fetch('/api/messages', { credentials: 'include' });
             if (res.status === 401) {
                 handleLogout();
                 return;
@@ -152,7 +152,8 @@ export default function AdminDashboard() {
 
         try {
             const res = await fetch(`/api/products?id=${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             });
 
             if (res.ok) {
@@ -243,7 +244,8 @@ export default function AdminDashboard() {
                 const res = await fetch('/api/products', {
                     method: 'PUT',
                     body: JSON.stringify(product),
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include'
                 });
 
                 if (res.ok) {
