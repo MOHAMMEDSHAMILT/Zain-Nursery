@@ -79,13 +79,7 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
             <section className={styles.intro} id="about">
                 <div className={`container ${styles.introFlex}`}>
                     <div className={`${styles.introImage} ${styles.animateFadeInLeft}`}>
-                        <img
-                            src="/images/nursery_story.jpg"
-                            alt="Zain Nursery Greenhouse"
-                            className={styles.storyImage}
-                            loading="lazy"
-                            decoding="async"
-                        />
+                        <img src="/images/story_farmer.png" alt="Zain Nursery Story" />
                     </div>
                     <div className={`${styles.introContent} ${styles.animateFadeInRight}`}>
                         <span className={styles.tagline}>Our Story</span>

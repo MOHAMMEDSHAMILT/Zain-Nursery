@@ -179,13 +179,6 @@
     border-radius: 2rem;
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.storyImage:hover {
-    transform: scale(1.02) translateY(-10px);
-    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
-    filter: brightness(1.05);
 }
 
 .introContent {
