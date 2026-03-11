@@ -80,8 +80,8 @@ export default function HomeClient({ initialProducts }: { initialProducts: any[]
                 <div className={`container ${styles.introFlex}`}>
                     <div className={`${styles.introImage} ${styles.animateFadeInLeft}`}>
                         <img
-                            src="/images/nursery_story_final.jpg"
-                            alt="Zain Nursery Story"
+                            src="/images/froned_garden.jpg"
+                            alt="Zain Nursery Front Garden"
                             className={styles.storyImage}
                             loading="lazy"
                             decoding="async"
